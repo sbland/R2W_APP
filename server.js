@@ -1,3 +1,5 @@
+require('dotenv').config()
+const config = require('./config');
 const express = require('express');
 const cors = require('cors')
 const neo4j = require('neo4j-driver');
@@ -19,7 +21,7 @@ app.use(express.json())
 
 var driver = neo4j.driver('bolt://52.87.235.130:32924', neo4j.auth.basic('neo4j', 'quarterdecks-woods-banks'));
 
-var query = 
+var query =
   "MATCH (n) \
    RETURN n \
    LIMIT $limit";
@@ -84,30 +86,30 @@ app.post('/api/addaction', (req,res) => {
         .then(()=>{session.close()})
 })
 
-const port = process.env.PORT || 5050
+const port = config.PORT
 
 app.listen(port, () => console.log(`server started on port ${port}`))
 
 /*
 const driver = neo4j.driver(
-    'bolt://localhost:7687', 
+    'bolt://localhost:7687',
     neo4j.auth.basic(
-        'neo4j', 
+        'neo4j',
         'R2W'
         ))
-        
+
 const driver = neo4j.driver(
-    'bolt://52.87.235.130:32924', 
+    'bolt://52.87.235.130:32924',
     neo4j.auth.basic(
-        'neo4j', 
+        'neo4j',
         'quarterdecks-woods-banks'
     )
 )
 
 const driver = neo4j.driver(
-    'bolt://hobby-ejfophcjhphmgbkeandgnhfl.dbs.graphenedb.com:24787', 
+    'bolt://hobby-ejfophcjhphmgbkeandgnhfl.dbs.graphenedb.com:24787',
     neo4j.auth.basic(
-        'mahmud', 
+        'mahmud',
         'b.eUXWi6RJ1XG0.MUPdzKcS3UvdXsJW'
-        )) 
+        ))
 */
